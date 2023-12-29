@@ -351,6 +351,30 @@
 					<subscribe>home/command/airconditioner/1/0</subscribe>
 				</mqtt>
 			</airconditioner>
+			<airconditioner>
+				<name>ROOM1 AIRCONDITIONER1</name>
+				<index>1</index>
+				<room>1</room>
+				<enable>1</enable>
+				<range_min>18</range_min>
+				<range_max>35</range_max>
+				<mqtt>
+					<publish>home/state/airconditioner/1/1</publish>
+					<subscribe>home/command/airconditioner/1/1</subscribe>
+				</mqtt>
+			</airconditioner>
+			<airconditioner>
+				<name>ROOM1 AIRCONDITIONER2</name>
+				<index>2</index>
+				<room>1</room>
+				<enable>1</enable>
+				<range_min>18</range_min>
+				<range_max>35</range_max>
+				<mqtt>
+					<publish>home/state/airconditioner/1/2</publish>
+					<subscribe>home/command/airconditioner/1/2</subscribe>
+				</mqtt>
+			</airconditioner>
 			<ventilator>
 				<name>VENTILATOR</name>
 				<index>0</index>

@@ -211,6 +211,13 @@ class PacketParser:
                     """
                     packet_info['device'] = 'unknown'
                     store = self.enable_store_packet_header_48
+                elif packet[3] == 0x4B:  # ??
+                    """
+                    # F7 0B 01 4B 01 68 11 00 00 CE EE
+                    # F7 0B 01 4B 04 68 11 00 00 CB EE
+                    """
+                    packet_info['device'] = 'unknown'
+                    store = False
                 else:
                     self.log(f'Unknown packet: {self.prettifyPacket(packet)}')
                     packet_info['device'] = 'unknown'
@@ -408,6 +415,7 @@ class PacketParser:
             self.updateDeviceState(result)
 
     def handleAirconditioner(self, packet: bytearray):
+        dev_idx = packet[6] & 0x0F
         room_idx = packet[6] >> 4
         if packet[4] == 0x01:  # 상태 쿼리
             pass
@@ -421,6 +429,7 @@ class PacketParser:
             rotation_speed = packet[12]  # 풍량 (1=자동, 2=미풍, 3=약풍, 4=강풍)
             result = {
                 'device': DeviceType.AIRCONDITIONER,
+                'index': dev_idx - 1,
                 'room_index': room_idx,
                 'state': state,
                 'temp_current': temp_current,
@@ -428,6 +437,7 @@ class PacketParser:
                 'mode': mode,
                 'rotation_speed': rotation_speed
             }
+            # print(f'Test: {self.prettifyPacket(packet)}, {result}')
             self.updateDeviceState(result)
 
     def handleElevator(self, packet: bytearray):
